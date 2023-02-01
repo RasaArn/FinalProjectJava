@@ -4,8 +4,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class QuizQuestionGenerator {
-    //public static void main(String[] args) {
-    //}
+    public static void main(String[] args) {
+        startQuiz();
+    }
     public static void startQuiz()  {
         String dbURL = "jdbc:mysql://localhost:3306/java34";
         String username = "root";
@@ -39,6 +40,7 @@ public class QuizQuestionGenerator {
                                 if (choice < 1 || choice > 5) {
                                     throw new InputMismatchException();
                                 }
+                                System.out.println("You input is not valid. Please enter a valid number between 1 and 5.");
                             } catch (InputMismatchException e) {
                                 System.out.println("You input is not valid. Please enter a valid number between 1 and 5.");
                                 scanner.nextLine();
