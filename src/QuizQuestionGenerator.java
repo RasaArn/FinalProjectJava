@@ -4,9 +4,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class QuizQuestionGenerator {
-    public static void main(String[] args) {
-        startQuiz();
-    }
+  //  public static void main(String[] args) {
+     //   startQuiz();
+   // }
     public static void startQuiz()  {
         String dbURL = "jdbc:mysql://localhost:3306/java34";
         String username = "root";
