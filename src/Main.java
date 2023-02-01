@@ -15,7 +15,7 @@ public class Main {
         try (Connection connection = DriverManager.getConnection(dbURL, username, password)) {
 
 
-            System.out.println("Welcome to our geography quiz!"+ '\n' +"What would you like to do?");
+            System.out.println("Welcome to geography quiz!"+ '\n' +"What would you like to do?");
 
             while (again == 'y') {
                 System.out.println("Please type 'register' / 'log in' ");

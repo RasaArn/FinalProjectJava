@@ -4,7 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class QuizQuestionGenerator {
-
+    //public static void main(String[] args) {
+    //}
     public static void startQuiz()  {
         String dbURL = "jdbc:mysql://localhost:3306/java34";
         String username = "root";
@@ -21,86 +22,90 @@ public class QuizQuestionGenerator {
                 System.out.println("q- take quiz");
                 System.out.println("e - quit program");
 
-                char quiz = scanner.nextLine().charAt(0);
-                boolean quit = false;
+                try {
+                    char quiz = scanner.nextLine().charAt(0);
+                    boolean quit = false;
 
-                if (quiz == 'q') {
-                    while (quiz == 'q') {
-                        quizMenu();
+                    if (quiz == 'q') {
+                        while (quiz == 'q') {
+                            quizMenu();
 
-                        //validating user input in quiz menu. It should not be possible to enter anything else than numbers 1-5.
-                        // User chooses quiz type from menu by entering number (variable choice)
-                        //using try catch block to catch invalid input and not stop the program because of it.
-                        int choice;
-                        try {
-                            choice = scanner.nextInt();
-                            if (choice < 1 || choice > 5) {
-                                throw new InputMismatchException();
+                            //validating user input in quiz menu. It should not be possible to enter anything else than numbers 1-5.
+                            // User chooses quiz type from menu by entering number (variable choice)
+                            //using try catch block to catch invalid input and not stop the program because of it.
+                            int choice;
+                            try {
+                                choice = scanner.nextInt();
+                                if (choice < 1 || choice > 5) {
+                                    throw new InputMismatchException();
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("You input is not valid. Please enter a valid number between 1 and 5.");
+                                scanner.nextLine();
+                                continue;
                             }
-                        } catch (InputMismatchException e) {
-                            System.out.println("You input is not valid. Please enter a valid number between 1 and 5.");
-                            scanner.nextLine();
-                            continue;
-                        }
 
 
-                        int count = 1; //counts number of questions
-                        int score = 0; // will count correct answers/ answers are reset to 0 each time user ends quiz, or chooses menu
-                        // int choice = scanner.nextInt(); //user chooses quiz type from menu
+                            int count = 1; //counts number of questions
+                            int score = 0; // will count correct answers/ answers are reset to 0 each time user ends quiz, or chooses menu
+                            // int choice = scanner.nextInt(); //user chooses quiz type from menu
 
-                        //inner while loops to start
-                        while (choice == 1) {
-                            System.out.println("Capital cities of Asian countries: ");
-                            if (AsiaCapitals(conn, count)) {
-                                score++;
+                            //inner while loops to start
+                            while (choice == 1) {
+                                System.out.println("Capital cities of Asian countries: ");
+                                if (AsiaCapitals(conn, count)) {
+                                    score++;
+                                }
+                                if (!continueOrEndQuiz(score, count)) break;
+                                count++;
                             }
-                            if (!continueOrEndQuiz(score, count)) break;
-                            count++;
-                        }
-                        while (choice == 2) {
-                            System.out.println("Capital cities of European countries: ");
-                            if (EuropeCapitals(conn, count)) {
-                                score++;
+                            while (choice == 2) {
+                                System.out.println("Capital cities of European countries: ");
+                                if (EuropeCapitals(conn, count)) {
+                                    score++;
+                                }
+                                if (!continueOrEndQuiz(score, count)) break;
+                                count++;
                             }
-                            if (!continueOrEndQuiz(score, count)) break;
-                            count++;
-                        }
-                        while (choice == 3) {
-                            System.out.println("Capital cities of South American countries: ");
-                            if (SouthAmericaCapitals(conn, count)) {
-                                score++;
+                            while (choice == 3) {
+                                System.out.println("Capital cities of South American countries: ");
+                                if (SouthAmericaCapitals(conn, count)) {
+                                    score++;
+                                }
+                                if (!continueOrEndQuiz(score, count)) break;
+                                count++;
                             }
-                            if (!continueOrEndQuiz(score, count)) break;
-                            count++;
-                        }
-                        while (choice == 4) {
-                            System.out.println("Capital cities of African countries: ");
-                            if (AfricaCapitals(conn, count)) {
-                                score++;
+                            while (choice == 4) {
+                                System.out.println("Capital cities of African countries: ");
+                                if (AfricaCapitals(conn, count)) {
+                                    score++;
+                                }
+                                if (!continueOrEndQuiz(score, count)) break;
+                                count++;
                             }
-                            if (!continueOrEndQuiz(score, count)) break;
-                            count++;
-                        }
-                        while (choice == 5) {
-                            System.out.println("Capital cities of North American countries: ");
-                            if (NorthAmericaCapitals(conn, count)) {
-                                score++;
+                            while (choice == 5) {
+                                System.out.println("Capital cities of North American countries: ");
+                                if (NorthAmericaCapitals(conn, count)) {
+                                    score++;
+                                }
+                                if (!continueOrEndQuiz(score, count)) break;
+                                count++;
                             }
-                            if (!continueOrEndQuiz(score, count)) break;
-                            count++;
+                            if (!endQuiz()) {
+                                quit = true;
+                                break;
+                            }
                         }
-                        if (!endQuiz()){
-                            quit =true;
+                        if (quit) {
                             break;
                         }
-                    }
-                    if (quit){
+                    } else if (quiz == 'e' || quiz == 'E') {
+                        System.out.println("See you next time! ");
                         break;
+                    } else {    //validating variable quiz
+                        System.out.println("Your input is not valid. Enter q to start quiz or e to quit");
                     }
-                }else if (quiz == 'e') {
-                    System.out.println("See you next time! ");
-                    break;
-                } else {    //validating variable quiz
+                } catch (IndexOutOfBoundsException e){
                     System.out.println("Your input is not valid. Enter q to start quiz or e to quit");
                 }
             } catch (SQLException | InputMismatchException e) { // //validating variable quiz, adding input mismatch exception to try catch block and scanner to read new input
@@ -373,12 +378,12 @@ public class QuizQuestionGenerator {
             System.out.println("Enter s to check your score/ go back to menu or end quiz");
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            if (input.matches("[cs]")) { // added regular expression validate user input
+            if (input.matches("[CcSs]")) { // added regular expression validate user input
                 char nextStep = input.charAt(0);
-                if (nextStep == 's') {
+                if (nextStep == 's' || nextStep == 'S') {
                     System.out.println("You have answered: " + score + " questions out of " + count);
                     feedback(count, score);
-                    System.out.println("Enter e to end quiz or any other symbol to play again. ");
+                    System.out.println("To end quiz: press e + enter; To play again: any key + enter ");
                     return false;
                 }
                 return true;
@@ -398,11 +403,14 @@ public class QuizQuestionGenerator {
 
     private static boolean endQuiz() {
         //System.out.println("Press e to end quiz, or any case to go back to menu");
+        try{
         Scanner scanner = new Scanner(System.in);
         char nextStep= scanner.nextLine().charAt(0);
         if (nextStep == 'e') {
             System.out.println("Quiz ended. See you next time! ");
             return false;
+        }
+    } catch (IndexOutOfBoundsException e) {
         }
         return true;
     }
