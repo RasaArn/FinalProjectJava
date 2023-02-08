@@ -4,9 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class QuizQuestionGenerator {
-  //  public static void main(String[] args) {
-     //   startQuiz();
-   // }
+
     public static void startQuiz()  {
         String dbURL = "jdbc:mysql://localhost:3306/java34";
         String username = "root";
@@ -181,14 +179,7 @@ public class QuizQuestionGenerator {
         Scanner scanner = new Scanner(System.in);
         boolean answer = false;
 
-        // tracking if ID is already used. But does not work since looping resets values each time while loop runs
-        //Unique IDs are not  necessary because quiz is for learning purpose, not testing knowledge.privat
-        /*   Set<Integer> usedIDs = new HashSet<>(); // will store the previously generated random IDs.
-           int randomID = rand.nextInt(35) + 48; // generates a random number between 48 and 82 (inclusive) and then adds 1 to it, resulting in a random number between 1 and 3 (inclusive).
-           while (usedIDs.contains(randomID)) {
-               randomID = rand.nextInt(35) + 48;
-           }usedIDs.add(randomID); // Once a unique random ID is generated, it is added to the usedIDs set using the add() method.
-.*/
+
         Random rand = new Random();
         int randomID = rand.nextInt(12) + 48;
 
@@ -232,13 +223,7 @@ public class QuizQuestionGenerator {
     private static boolean AfricaCapitals(Connection conn, int count) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         boolean answer = false;
-        // tracking if ID is already used
-        /*   Set<Integer> usedIDs = new HashSet<>(); // will store the previously generated random IDs.
-           int randomID = rand.nextInt(52) + 83; // generate a random integer between 83 and 135 (52 + 83)
-           while (usedIDs.contains(randomID)) {
-               randomID = rand.nextInt(52) + 83;
-           }usedIDs.add(randomID); // Once a unique random ID is generated, it is added to the usedIDs set using the add() method.
-.*/
+
         Random rand = new Random();
         int randomID = rand.nextInt(52) + 84;
 
